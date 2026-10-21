@@ -19,14 +19,16 @@ from .models import (
 from .budget_calculator import calculate_budget_breakdown, replan_budget_programmatically
 from .config import GEMINI_API_KEY, GEMINI_MODEL_PRIMARY, GEMINI_MODEL_FALLBACK
 
-# Try importing google.genai
+import httpx
+
+# Try importing google.genai optionally
 try:
     from google import genai
     from google.genai import types
     GENAI_AVAILABLE = True
-except Exception as e:
+except Exception:
     GENAI_AVAILABLE = False
-    print(f"google.genai import notice: {e}")
+
 
 class EventPlannerEngine:
     def __init__(self, api_key: str = None):
@@ -446,8 +448,8 @@ class EventPlannerEngine:
         )
 
     def _call_gemini_enhancement(self, req: EventRequest, base_ideas: PersonalizedIdeas) -> Optional[Dict[str, Any]]:
-        """Call Gemini if client is active to enhance creative recommendations."""
-        if not self.client:
+        """Call Gemini via lightweight HTTP or SDK to enhance creative recommendations."""
+        if not self.api_key and not self.client:
             return None
 
         prompt = f"""You are the EventGenie AI Creative Director.
@@ -479,22 +481,36 @@ Return ONLY a valid JSON object with:
   "favors_and_gifts": ["gift 1", "gift 2", "gift 3"]
 }}"""
 
-        try:
-            response = self.client.models.generate_content(
-                model=GEMINI_MODEL_PRIMARY,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    temperature=0.7
-                )
-            )
-            if response and response.text:
-                return json.loads(response.text)
-        except Exception as e:
-            print(f"Primary Gemini model call failed ({e}), attempting fallback model...")
+        # Method 1: Lightweight HTTP REST (Ultra-fast, zero grpcio bloat, perfect for Vercel/Cloud Run)
+        for model in [GEMINI_MODEL_PRIMARY, GEMINI_MODEL_FALLBACK]:
+            if not self.api_key:
+                break
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={self.api_key}"
+                payload = {
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {
+                        "responseMimeType": "application/json",
+                        "temperature": 0.7
+                    }
+                }
+                with httpx.Client(timeout=15.0) as client:
+                    resp = client.post(url, json=payload)
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        candidates = data.get("candidates", [])
+                        if candidates:
+                            raw_text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                            if raw_text:
+                                return json.loads(raw_text)
+            except Exception as e:
+                print(f"Gemini REST call failed for {model}: {e}")
+
+        # Method 2: If google.genai client is available
+        if self.client:
             try:
                 response = self.client.models.generate_content(
-                    model=GEMINI_MODEL_FALLBACK,
+                    model=GEMINI_MODEL_PRIMARY,
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json",
@@ -503,8 +519,9 @@ Return ONLY a valid JSON object with:
                 )
                 if response and response.text:
                     return json.loads(response.text)
-            except Exception as e2:
-                print(f"Fallback Gemini model also failed: {e2}")
+            except Exception as e:
+                print(f"Fallback SDK call failed: {e}")
+
         return None
 
     def create_plan(self, req: EventRequest) -> EventPlan:
