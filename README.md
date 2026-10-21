@@ -114,7 +114,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 > 6) Creative Studio with color palettes, multi-course menus, cultural activities, and 3-style invitation wordings.
 > 7) Persistent backend storage with saved plan retrieval and print/PDF/Markdown export dossiers.
 
-*(986 characters — below 1,024 limit)*
+
 
 ### Question 2: Mention the Gen AI services utilized in the submission, and where did you utilize it?
 > 1) Google Gemini 2.5 Flash / 1.5 Flash via official `google-genai` SDK: Utilized for structured schema-enforced generation of personalized event themes, contextual culinary courses (appetizers, live counters, royal mains), cultural ceremonial activities (Phoolon ki Holi, Sangeet dance battles), and bespoke invitation wordings (Formal, Playful, WhatsApp Short).
