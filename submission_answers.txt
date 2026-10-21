@@ -1,0 +1,35 @@
+================================================================================
+EVENTGENIE AI — HACKATHON SUBMISSION FORM ANSWERS
+================================================================================
+
+QUESTION 1:
+Describe the changes/updates made in the deployed version.
+(Character count strictly below 1,024 characters)
+--------------------------------------------------------------------------------
+Built and deployed EventGenie AI, an intelligent event planning web application featuring:
+1) AI Event Planner: Interactive multi-attribute form with one-click presets for Indian weddings, milestone birthdays, college fests, and community gatherings.
+2) Deterministic Smart Budget Planner: Computes all expense categories, itemized sub-allocations, and cost-saving tips programmatically in Python code, eliminating LLM arithmetic errors, and preserving a 5% uncommitted contingency reserve.
+3) Dynamic Natural-Language Replanner: Modifies existing plans via chat assistant (e.g., reducing budget from ₹5,00,000 to ₹4,50,000, changing guest counts, or updating themes) with an automated trade-off analysis while strictly preserving completed task statuses.
+4) Automated Timeline & Checklist: Generates calendar-mapped milestone tasks with interactive completion toggles.
+5) Vendor Due-Diligence Guide: Vetting criteria, benchmark price ranges, and negotiation checklists.
+6) Creative Studio & Persistent Storage: Curates themes, color palettes, multi-course menus, cultural activities, and 3 invitation wording styles, with local persistent JSON storage and Print/PDF/Markdown export dossiers.
+
+
+================================================================================
+QUESTION 2:
+Mention the Gen AI services utilized in the submission, and where did you utilize it?
+--------------------------------------------------------------------------------
+1) Google Gemini Models (gemini-2.5-flash / gemini-1.5-flash):
+Integrated via direct lightweight HTTP REST and the google-genai SDK. Utilized for schema-enforced structured generation of creative event styling, including theme narratives, harmonious color palette rationale, multi-course banquet menus (welcome drinks, live chaat stations, royal mains, sweet finale), celebratory cultural activities (Phoolon ki Holi, Sangeet dance face-offs, tech jams), and tailored 3-style invitation wordings (Formal/Traditional, Playful/Contemporary, and Digital WhatsApp Short).
+
+2) Hybrid Agentic Architecture:
+Gemini's generative creativity is explicitly decoupled from financial arithmetic. A deterministic Python engine calculates all budget percentages, totals, and trade-off rebalances to guarantee mathematical integrity. A dynamic replanner extracts user parameters from natural language prompts to adjust plans without altering completed milestones.
+
+3) EventGenie Deterministic Intelligence Engine:
+Functions as an automatic, zero-downtime offline fallback when API keys are not supplied, ensuring seamless user experience and full demoability.
+
+================================================================================
+Live URLs & Repository:
+- Frontend: https://event-geneiue.vercel.app (or local http://localhost:3000)
+- GitHub Repository: https://github.com/Innovatorcloudy/event-geneiue.git
+================================================================================
