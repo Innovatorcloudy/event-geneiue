@@ -4,29 +4,30 @@ EVENTGENIE AI — HACKATHON SUBMISSION FORM ANSWERS
 
 QUESTION 1:
 Describe the changes/updates made in the deployed version.
-(Character count strictly below 1,024 characters)
+(Character count: ~840 characters | Limit: 1,024)
 --------------------------------------------------------------------------------
-Built and deployed EventGenie AI, an intelligent event planning web application featuring:
-1) AI Event Planner: Interactive multi-attribute form with one-click presets for Indian weddings, milestone birthdays, college fests, and community gatherings.
-2) Deterministic Smart Budget Planner: Computes all expense categories, itemized sub-allocations, and cost-saving tips programmatically in Python code, eliminating LLM arithmetic errors, and preserving a 5% uncommitted contingency reserve.
-3) Dynamic Natural-Language Replanner: Modifies existing plans via chat assistant (e.g., reducing budget from ₹5,00,000 to ₹4,50,000, changing guest counts, or updating themes) with an automated trade-off analysis while strictly preserving completed task statuses.
-4) Automated Timeline & Checklist: Generates calendar-mapped milestone tasks with interactive completion toggles.
-5) Vendor Due-Diligence Guide: Vetting criteria, benchmark price ranges, and negotiation checklists.
-6) Creative Studio & Persistent Storage: Curates themes, color palettes, multi-course menus, cultural activities, and 3 invitation wording styles, with local persistent JSON storage and Print/PDF/Markdown export dossiers.
+EventGenie AI is an end-to-end event planning application featuring:
+1) AI Event Planner: Interactive multi-attribute setup with 1-click presets for weddings, birthdays, fests, and community events.
+2) Deterministic Budget Planner: Allocates categories, calculates sub-items, and provides cost-saving tips programmatically in Python code—preventing LLM math hallucinations while keeping a 5% contingency reserve.
+3) Dynamic Natural-Language Replanner: Modifies existing plans via chat assistant (e.g., budget cuts to ₹4,50,000 or guest changes) with trade-off analysis while strictly preserving completed task states.
+4) Automated Timeline: Milestone tasks mapped to calendar deadlines with interactive checklist toggles.
+5) Vendor Due-Diligence: Objective criteria, questions, and benchmark rates.
+6) Creative Studio & Persistence: Curates themes, palettes, menus, cultural activities, and invitations, backed by JSON storage and Print/PDF export dossiers.
 
 
 ================================================================================
 QUESTION 2:
 Mention the Gen AI services utilized in the submission, and where did you utilize it?
+(Character count: ~845 characters | Limit: 1,024)
 --------------------------------------------------------------------------------
-1) Google Gemini Models (gemini-2.5-flash / gemini-1.5-flash):
-Integrated via direct lightweight HTTP REST and the google-genai SDK. Utilized for schema-enforced structured generation of creative event styling, including theme narratives, harmonious color palette rationale, multi-course banquet menus (welcome drinks, live chaat stations, royal mains, sweet finale), celebratory cultural activities (Phoolon ki Holi, Sangeet dance face-offs, tech jams), and tailored 3-style invitation wordings (Formal/Traditional, Playful/Contemporary, and Digital WhatsApp Short).
+1) Google Gemini (gemini-2.5-flash / gemini-1.5-flash):
+Integrated via lightweight HTTP REST and google-genai SDK for schema-enforced generation of creative event assets: theme concepts, color palette rationale, multi-course banquet menus (appetizers, live counters, royal mains), cultural celebration activities (Sangeet dance battles, Phoolon ki Holi), and 3-style invitation wordings (Formal, Playful, and WhatsApp Short).
 
-2) Hybrid Agentic Architecture:
-Gemini's generative creativity is explicitly decoupled from financial arithmetic. A deterministic Python engine calculates all budget percentages, totals, and trade-off rebalances to guarantee mathematical integrity. A dynamic replanner extracts user parameters from natural language prompts to adjust plans without altering completed milestones.
+2) Hybrid Architecture with Programmatic Separation:
+Gemini's generative output is strictly decoupled from financial calculations. A deterministic Python engine handles all budget math, category allocations, and trade-off rebalancing to eliminate arithmetic errors.
 
-3) EventGenie Deterministic Intelligence Engine:
-Functions as an automatic, zero-downtime offline fallback when API keys are not supplied, ensuring seamless user experience and full demoability.
+3) Fallback Engine:
+An internal rule-based engine activates automatically if API keys are absent, ensuring uninterrupted demoability.
 
 ================================================================================
 Live URLs & Repository:
